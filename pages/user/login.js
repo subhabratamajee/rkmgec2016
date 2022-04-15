@@ -264,7 +264,7 @@ color: orange;
         )}  
       {/* {loggedIn &&(
         <>
-        logouttttttttt
+        logouttttt
         {/* </> */}
       {/* )}  */} 
        {/* { router.push("./")} */}
