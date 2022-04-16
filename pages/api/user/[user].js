@@ -8,7 +8,7 @@ import User from '../../../models/User';
     case "GET":
   try {
     const user = await User.findOne({_id:userId.user});
-    console.log(userId.user)
+    // console.log(userId.user)
     // const user = await User.find({})
     // const { password, updatedAt, ...other } = user._doc;
     // res.status(200).json(user);

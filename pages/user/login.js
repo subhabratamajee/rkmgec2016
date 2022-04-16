@@ -1,95 +1,29 @@
 import React, { useState } from "react";
-import {useRouter} from "next/router";
-import Cookies from "js-cookie";
+import { useRouter } from "next/router";
+import cookie from "js-cookie";
 import Link from "next/link";
-import fetch from 'isomorphic-unfetch';
+import fetch from "isomorphic-unfetch";
 import useSWR from "swr";
 import { FaUserGraduate } from "react-icons/fa";
 
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-// const Login = (props) => {
-//   const [email, setEmail] = useState("");
-//   const [password, setPassword] = useState("");
-
-//   async function handleSubmit(e) {
-//     e.preventDefault();
-//     //call api
-//     const loginApi = await fetch("../api/user/login", {
-//       method: "POST",
-//       headers: {
-//         "Content-Type": "application/json",
-//       },
-//       body: JSON.stringify({
-//         email,
-//         password,
-//       }),
-//     }).catch((error) => {
-//       console.error("Error:",{ error});
-//     });
-
-//     let data = await loginApi.json();
-//     if (data.success && data.token) {
-//       //set cookie, { expires: 3600
-//       Cookies.set("token", data.token);
-//       console.log("YOKEN ID"+data.token);
-//       // {notify}
-//       toast.success(data.message);
-//       // setLoginError("successful");
-//       // setTimeout(() => {
-//       // }, 2000);
-//       Router.push("./");
-//     } else {
-//       toast.error(data.message);
-//     }
-//   }
-
-//   const { data } = useSWR("../api/me", async function (args) {
-//     const res = await fetch(args);
-//     return res.json();
-//   });
-// //   const { dataa } =await fetch("http://localhost:3000/api/me");
-// // let data = await dataa.json();
-//   // console.log(data);
-//   if (!data) return <h1>Loading...</h1>;
-//   let loggedIn = false;
-//   if (data.email) {
-//     loggedIn = true;
-//   }
-
-// import {
-//   absoluteUrl,
-//   getAppCookies,
-//   verifyToken,
-//   setLogout,
-// } from "../../middleware/utils";
-import me from '../api/me'
- const  Login = (props) =>{
-   const router=useRouter()
-  const { baseApiUrl, profile } = props;
-  const [loginError, setLoginError] = useState('');
+const Login = (props) => {
+  const router = useRouter();
+  const [loginerror, setLoginerror] = useState(false)
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  
-  // setError("");
-  // setMessage("");
 
-  // fields check
-  // if (!roll || !password )
-  //   return setError("All fields are required");
-  const {data} = useSWR('../api/me', async function(args) {
+  const { data } = useSWR("../api/me", async function (args) {
     const res = await fetch(args);
     return res.json();
   });
-  console.log(data)
   if (!data) return <h1>Loading...</h1>;
   let loggedIn = false;
   if (data.email) {
     loggedIn = true;
   }
-
-  
 
   async function handleSubmit(e) {
     e.preventDefault();
@@ -107,62 +41,107 @@ import me from '../api/me'
     }).catch((error) => {
       console.error("Error:", error);
     });
-   
-  let data = await loginApi.json();
-  if (data.success && data.token) {
-    //set cookie, { expires: 3600
-    Cookies.set("token", data.token );  
-    console.log(data.token);
-    // setLoginError("successful");
-    // router.push('./');
-  }
-   else {
-    // setLoginError(data.message);
-  }
+
+    let data = await loginApi.json();
+    if (data.success && data.token) {
+      //set cookie, { expires: 3600
+      cookie.set("token", data.token);
+      router.push("./welcome");
+      toast.success(data.message);
+    } else {
+      setLoginerror(true)
+      toast.error(data.message);
+      
+    }
   }
 
- 
   return (
-    <>
-      { !loggedIn && (
-      <>
-        <div className="body">
-          <ToastContainer />
-          <div className="container">
-            <form onSubmit={handleSubmit}>
-              <div className="form-icon">
-                <FaUserGraduate />
-              </div>
-              <h3 className="title">Login</h3>
-              <input
-                className="form-control"
-                placeholder="Email"
-                name="email"
-                type="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-              />
-              <input
-                className="form-control"
-                placeholder="Password"
-                name="password"
-                type="password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-              />
-              <button type="submit" value="Submit" className="btn">
-                login
-              </button>
-            </form>
-            <h6 className="" align="center">
-              <Link className="a" href="/">
-                Forgot Password?
-              </Link>
-            </h6>
-          </div>
-{/* {router.push('./')} */}
-          <style jsx>
-            {`
+    <>  
+     {loginerror &&(<ToastContainer
+position="top-center"
+autoClose={5000}
+hideProgressBar={false}
+newestOnTop={false}
+closeOnClick
+rtl={false}
+pauseOnFocusLoss
+draggable
+pauseOnHover
+/>)}
+        
+      
+      
+    <div className="body">
+      {!loggedIn && (
+        <>
+  
+            <div className="container">
+              <form onSubmit={handleSubmit}>
+                <div className="form-icon">
+                  <FaUserGraduate />
+                </div>
+                <h3 className="title">Login</h3>
+                <input
+                  className="form-control"
+                  placeholder="Email"
+                  name="email"
+                  type="email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                />
+                <input
+                  className="form-control"
+                  placeholder="Password"
+                  name="password"
+                  type="password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                />
+                <button type="submit" value="Submit" className="btn">
+                  login
+                </button>
+                {/* {router.push('/')} */}
+              </form>
+              <h6 className="" align="center">
+                <Link className="a" href="/">
+                  Forgot Password?
+                </Link>
+              </h6>
+            </div>
+         
+        </>
+      )}
+      {loggedIn && (
+        <>    
+        <div className="container">
+          
+          <h1>Welcome {data.name}!</h1>
+<div>
+<Link href='/' passHref><button className="btn" onClick={()=>toast.info("Welcome to Home Page")}>
+            Homepage
+          </button>
+          </Link>
+
+</div>
+<div>
+  
+          <button
+            className="btn"
+            onClick={() => {
+              cookie.remove("token");
+              toast.info("Succesfully Logout");
+              router.push("/");
+            }}
+            >
+            Logout
+          </button>
+                </div>
+            </div>
+        </>
+      )}
+ </div>
+      <style jsx>
+        {`
 
 .body{
 justify-content: center;
@@ -171,7 +150,8 @@ display: flex;
 min-height: 100vh;
 width:100vw;
 background: #f2f2f2;
-margin-top:20vh;
+padding-top:20vh;
+// margin-top:20vh;
 font-family: 'Russo One', sans-serif;
 }
 .container{
@@ -230,44 +210,10 @@ outline: none;
 
 }
 
-::placeholder{
-color: #808080;
-font-size: 16px;
 
-
-}
-.btn{
-color: #ac40ab;
-background-color: #ecf0f3;
-font-size: 20px;
-font-weight: bold;
-text-transform: uppercase;
-width: 100%;
-padding: 12px 15px 11px;
-border-radius: 20px;
-box-shadow: 6px 6px 6px #cbced1, -6px -6px 6px #fff;
-border: none;
-transition: all 0.5s ease 0s;
-margin: 25px 0 20px;
-cursor: pointer;
-
-
-}
-.btn:hover{
-color: orange;
-} 
 
 `}
-          </style>
-        </div>
-       </>
-        )}  
-      {/* {loggedIn &&(
-        <>
-        logouttttt
-        {/* </> */}
-      {/* )}  */} 
-       {/* { router.push("./")} */}
+      </style>
     </>
   );
 };

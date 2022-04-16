@@ -19,39 +19,18 @@ export default async function handler(req, res) {
         } else {
           const validPassword = await bcrypt.compare(password, user.password);
           if (!validPassword) {
-            res.status(401).json({ error: true, message: 'Auth Failed' });
+            res.status(401).json({ error: true, message: "Auth Failed" });
           } else {
             const token = jwt.sign(
               {userId: user._id,
                 name:user.name ,email: user.email,
               admin:user.isAdmin},SECRET_KEY,
-              // {
-              //   expiresIn: 3600, //1HOUR
-              // },
+              {
+                expiresIn: 3600, 
+              },
             );
             res.status(200).json({token,success:true,message:"successfull login"});
             return;
-            // const payload = {
-            //   id: _id,
-            //   email,
-              
-            // };
-            // jwt.sign(
-            //   payload,
-            //   jwtSecret,
-            //   {
-            //     expiresIn: 31556926, // 1 year in seconds
-            //   },
-            //   (err, token) => {
-            //     /* Send succes with token */
-            //     res.status(200).json({
-            //       // success: true,
-            //       token: ('Bearer ' + token),
-            //     });
-            //   },
-            // );
-            // res.status(200).json(user);
-          
           }
         }
       } catch (err) {
@@ -60,13 +39,3 @@ export default async function handler(req, res) {
   }
 };
 
-// export function verifyToken(token,req,res) {
-//   try {
-//     var j = jwt.verify(token, SECRET_KEY);
-//     return j;
-//     console.log(j);
-//   } catch (e) {
-//     console.log('e:', e);
-//     return null;
-//   }
-//   }

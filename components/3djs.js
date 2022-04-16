@@ -34,7 +34,7 @@ function djs() {
     perspective-origin: 50% -500px;
     }
     .single-box {
-    background-image: url(bg.jpg);
+    background-image: url(col.jpeg);
     background-size: cover;
     display: block;
     position: absolute;

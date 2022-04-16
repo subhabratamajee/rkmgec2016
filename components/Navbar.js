@@ -50,7 +50,7 @@ function Navbar() {
   return (
     <div>
       <div
-        className="nav"
+        className={styles.nav}
         style={{
           background: `rgba(110, 89, 25, ${backgroundTransparacy})`,
           padding: `${padding}px 0px`,
@@ -58,7 +58,7 @@ function Navbar() {
           // borderBottom:`1px solid red`,
         }}
       >
-        <div className="logo">KMGEC</div>
+        <div className={styles.logo}><span className={styles.r}>R</span>KMGEC</div>
 
         <div
           className={open === false ? styles.menubar : styles.close}
@@ -92,17 +92,17 @@ function Navbar() {
           }
           // className={styles.navbar}
         >
-          <ul className="ul">
-            <li className="li"><Link href="/"><a>Home</a></Link></li>
-            <li className="li"><Link href="/"><a>about</a></Link></li>
-            <li className="li"><Link href="/"><a> events</a></Link></li>
-            <li className="li"><Link href="/"><a> Query</a></Link></li>
-            <li className="li">
-              <Link href="../user/login"><a>
-                login</a>
+          <ul className={styles.ul}>
+            <Link href="/"><a><li className={styles.li}>Home</li></a></Link>
+            <Link href="/"><a><li className={styles.li}>about</li></a></Link>
+            <Link href="/"><a><li className={styles.li}> events</li></a></Link>
+            <Link href="/"><a><li className={styles.li}> Query</li></a></Link>
+            
+              <Link href="https://rkmgec.vercel.app/user/login"><a><li className={styles.li}>
+                login </li></a>
               </Link>
-            </li>
-            <li className="li"><Link href="/"><a>contacts</a></Link></li>
+           
+            <Link href="/"><a><li className={styles.li}>contacts</li></a></Link>
           </ul>
         </div>
       </div>

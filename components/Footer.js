@@ -5,7 +5,7 @@ function Footer() {
   return (
     <div>
       
-      <body>
+      <div className="body">
         <ul>
           <li>
             <a href="#">
@@ -33,14 +33,15 @@ function Footer() {
             </a>
           </li>
         </ul>
-      </body>
+      </div>
 
       <style jsx>{`
-body
+.body
 {
     margin: 0;
     padding: 0;
-    background: #dedede;
+    // background: #dedede;
+    background: #f2f2f2;
     justify-content: center;
     align-items: center;
     display: flex;
