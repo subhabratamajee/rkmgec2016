@@ -9,7 +9,7 @@ export default function Layout({ children }) {
       <Footer/>
       <style jsx>{`
       main{min-height:60vh;
-     
+        // max-width: 100px;
     }
       `}</style>
     </>

@@ -5,7 +5,6 @@ import Link from "next/link";
 import fetch from "isomorphic-unfetch";
 import useSWR from "swr";
 import { FaUserGraduate } from "react-icons/fa";
-
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
@@ -44,8 +43,8 @@ const Login = (props) => {
 
     let data = await loginApi.json();
     if (data.success && data.token) {
-      //set cookie, { expires: 3600
-      cookie.set("token", data.token);
+      // set cookie, 
+      cookie.set("token",data.token,{ expires: 3600});
       router.push("./welcome");
       toast.success(data.message);
     } else {
@@ -148,7 +147,7 @@ justify-content: center;
 align-items: center;
 display: flex;
 min-height: 100vh;
-width:100vw;
+min-width:100vw;
 background: #f2f2f2;
 padding-top:20vh;
 // margin-top:20vh;
@@ -192,23 +191,7 @@ padding: 0;
 margin-bottom: 20px;
 
 }
-.container .form-control{
-color: #333;
-background: #ecf0f3;
-font-size: 15px;
-height: 50px;
-padding: 20px;
-letter-spacing: 1px;
-border: none;
-border-radius: 50px;
-box-shadow: inset 6px 6px 6px #cbced1, inset -6px -6px 6px #fff;
-display: inline-block;
-transition: all 0.3s ease 0s;
-width: 100%;
-margin: 0 0 25px;
-outline: none;
 
-}
 
 
 

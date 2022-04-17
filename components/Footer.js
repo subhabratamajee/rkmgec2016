@@ -5,7 +5,7 @@ function Footer() {
   return (
     <div>
       
-      <div className="body">
+      <div className="footerbody">
         <ul>
           <li>
             <a href="#">
@@ -36,7 +36,7 @@ function Footer() {
       </div>
 
       <style jsx>{`
-.body
+.footerbody
 {
     margin: 0;
     padding: 0;
@@ -45,6 +45,7 @@ function Footer() {
     justify-content: center;
     align-items: center;
     display: flex;
+    min-width:100vw;
     height: 50vh;
 }
 ul

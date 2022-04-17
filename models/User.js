@@ -1,6 +1,7 @@
-import mongoose from 'mongoose'
+import mongoose from "mongoose";
 
-const UserSchema = new mongoose.Schema({
+const UserSchema = new mongoose.Schema(
+  {
     name: {
       type: String,
       require: true,
@@ -15,11 +16,11 @@ const UserSchema = new mongoose.Schema({
       unique: true,
     },
     rollNo: {
-        type: String,
-        // required: true,
-        max: 50,
-        unique: true,
-      },
+      type: String,
+      // required: true,
+      max: 50,
+      unique: true,
+    },
     password: {
       type: String,
       required: true,
@@ -33,14 +34,17 @@ const UserSchema = new mongoose.Schema({
       type: Boolean,
       default: false,
     },
+    session: {
+      type: String,
+      default: "",
+    },
     desc: {
       type: String,
       max: 50,
     },
-    
   },
   { timestamps: true }
 );
 
 // export default model("User", UserSchema);
-export default mongoose.models.User || mongoose.model('User', UserSchema);
+export default mongoose.models.User || mongoose.model("User", UserSchema);

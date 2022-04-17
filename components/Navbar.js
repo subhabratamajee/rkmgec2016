@@ -98,7 +98,7 @@ function Navbar() {
             <Link href="/"><a><li className={styles.li}> events</li></a></Link>
             <Link href="/"><a><li className={styles.li}> Query</li></a></Link>
             
-              <Link href="https://rkmgec.vercel.app/user/login"><a><li className={styles.li}>
+              <Link href="http://localhost:3000/user/login"><a><li className={styles.li}>
                 login </li></a>
               </Link>
            
